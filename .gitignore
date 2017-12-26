@@ -3,5 +3,8 @@ dogImages/
 lfw/
 saved_models/weights.best.from_scratch.hdf5
 saved_models/weights.best.vgg16.hdf5
+saved_models/weights.best.InceptionV3.hdf5
 .ipynb_checkpoints/
-bottleneck_features/DogVGG16Data.npz
+bottleneck_features/*
+inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5
+model.weights.best.human_face_detector
