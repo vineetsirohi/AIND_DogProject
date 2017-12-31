@@ -1,0 +1,77 @@
+$def with (user_file)
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dog breed detector</title>
+
+	<style type="text/css">
+	* {
+		box-sizing: border-box;
+	}
+	html, body {
+		font-family: 'Open Sans', sans-serif;
+	}
+	.clearfix:before, .clearfix:after {
+		content: " ";
+		display: table;
+	}
+	.clearfix:after {
+		clear: both;
+	}
+	.wrapper {
+		width: 900px;
+		max-width: 90%;
+		margin: 0 auto;
+	}
+	#top_header{
+		padding: 1.5em 0;
+		
+	}
+	#top_header .logo{
+		float: left;
+		text-transform: uppercase;
+		font-size: 1.15em;
+		font-weight: 700;
+	}
+	#top_header .logo span {
+		font-weight: 300;
+	}
+	#content {
+		margin: 50px 0;
+	}
+	
+</style>
+</head>
+<body>
+	<header id="top_header" class="clearfix">
+		<div class="wrapper">
+			<h1 class="logo">Dogs<span>Breed</span>Detector</h1>
+			<nav id="main_nav">
+				<a href=""></a>
+			</nav>
+		</div>
+	</header>
+	<div class="wrapper">
+		<div id="banner" class="clearfix">
+			<img src="static/images/banner.png">
+		</div>
+		<div id="content">
+			<h2>Please upload an image to detect dog breed</h2>
+			
+			<form id="upload-form" method="POST" enctype="multipart/form-data" action="{{ url_for('webapp') }}">
+				<input type="file" name="myfile" accept="image/*" multiple/>
+				<br/>
+				<input type="submit" value="Get breed"/>
+			</form>
+
+			<img id="dog_image" src="" width="200" height="200">
+			<h3 id="dog_breed">$user_file</h3>
+		</div>
+	</div>
+
+	<script>
+		document.getElementById('dog_image').src=$user_file
+	</script>
+</body></html>
+
