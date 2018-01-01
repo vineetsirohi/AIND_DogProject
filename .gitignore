@@ -8,3 +8,4 @@ saved_models/weights.best.InceptionV3.hdf5
 bottleneck_features/*
 inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5
 model.weights.best.human_face_detector
+static/uploadedImages

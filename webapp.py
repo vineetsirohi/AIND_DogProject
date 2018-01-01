@@ -14,7 +14,9 @@ class index:
 
 	def GET(self, name=None):
 		user_data = web.input(file="")
-		return self.render.webapp("\""+user_data.file+"\"")
+		if user_data.file == "":
+			user_data.file = "0"
+		return self.render.webapp(user_data.file)
 
 	def POST(self, name):
 	    x = web.input(myfile={})
@@ -30,7 +32,7 @@ class index:
 	        fout = open(filepath,'wb') # creates the file where the uploaded file should be stored
 	        fout.write(x.myfile.file.read()) # writes the uploaded file to the newly created file.
 	        fout.close() # closes the file, upload complete.
-	    raise web.seeother('/?file={}'.format(filepath))
+	    raise web.seeother('/?file={}'.format(os.path.join('static/uploadedImages', filename).replace('\\','/')))
 
 
 if __name__ == '__main__':

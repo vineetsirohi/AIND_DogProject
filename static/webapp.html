@@ -42,6 +42,12 @@ $def with (user_file)
 	}
 	
 </style>
+<script type="text/javascript">
+	function loadImage() {
+		document.getElementById("dog_image").src="\""+$user_file+"\""
+
+	}
+</script>
 </head>
 <body>
 	<header id="top_header" class="clearfix">
@@ -65,13 +71,15 @@ $def with (user_file)
 				<input type="submit" value="Get breed"/>
 			</form>
 
-			<img id="dog_image" src="" width="200" height="200">
-			<h3 id="dog_breed">$user_file</h3>
+			<img id="dog_image" src="" onload="loadImage();" width="200" height="200">
+			<h3 id="dog_breed" style="display: none">$user_file</h3>
 		</div>
 	</div>
 
-	<script>
-		document.getElementById('dog_image').src=$user_file
+	<script type="text/javascript">
+		window.onload = function(){
+			document.getElementById("dog_image").src=document.getElementById("dog_breed").innerHTML
+		}
 	</script>
 </body></html>
 
