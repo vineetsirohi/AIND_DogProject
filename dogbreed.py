@@ -160,19 +160,21 @@ class DogBreed():
         entity = "neither"
         breed = "none"
                 
+        self.tensor = self.__path_to_tensor(img_path)
+
         if self.__face_detector(img_path):
             entity = "human"
             breed = self.__InceptionV3_predict_breed(img_path)
         elif self.__dog_detector(img_path):
             entity = "dog"
             breed = self.__InceptionV3_predict_breed(img_path)
-            
+
         return (entity, breed)
 
 
     def __InceptionV3_predict_breed(self, img_path):
         # extract bottleneck features
-        bottleneck_feature = self.__extract_InceptionV3(self.__path_to_tensor(img_path))
+        bottleneck_feature = self.__extract_InceptionV3(self.tensor)
         # obtain predicted vector
         predicted_vector = self.InceptionV3_model.predict(bottleneck_feature)
         # return dog breed that is predicted by the model
@@ -192,12 +194,7 @@ class DogBreed():
         # convert 3D tensor to 4D tensor with shape (1, 224, 224, 3) and return 4D tensor
         return np.expand_dims(x, axis=0)
 
-    # def paths_to_tensor(self, img_paths):
-    #     list_of_tensors = [path_to_tensor(img_path) for img_path in img_paths]
-    #     return np.vstack(list_of_tensors)
-
-
-
+    
     def __dog_detector(self, img_path):
         prediction = self.__ResNet50_predict_labels(img_path)
         return ((prediction <= 268) & (prediction >= 151)) 
@@ -205,7 +202,7 @@ class DogBreed():
 
     def __ResNet50_predict_labels(self, img_path):
         # returns prediction vector for image located at img_path
-        img = preprocess_input(self.__path_to_tensor(img_path))
+        img = preprocess_input(self.tensor)
         return np.argmax(self.ResNet50_model.predict(img))
 
 

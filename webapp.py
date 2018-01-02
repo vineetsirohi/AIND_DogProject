@@ -12,7 +12,7 @@ app = web.application(urls, globals())
 class index:
 	def __init__(self):
 		self.render = web.template.render('static')
-		self.dogBreed = DogBreed()
+		
 
 	def GET(self, name=None):
 		user_data = web.input(file="", entity="", breed="")
@@ -35,7 +35,7 @@ class index:
 	        fout.write(x.myfile.file.read()) # writes the uploaded file to the newly created file.
 	        fout.close() # closes the file, upload complete.
 
-	        entity, breed = self.dogBreed.detect_breed(filepath)
+	        entity, breed = DogBreed().detect_breed(filepath)
 	        # entity, breed = ("human", "labrador")
 
 	    raise web.seeother('/?file={}&entity={}&breed={}'.format(os.path.join('static/uploadedImages', filename).replace('\\','/'), entity, breed ))
