@@ -4,6 +4,7 @@ from keras.models import Sequential
 from keras.layers import GlobalAveragePooling2D, Dense
 from keras.preprocessing import image 
 from keras.applications.resnet50 import ResNet50, preprocess_input, decode_predictions
+from keras import backend
 
 import cv2              
 import numpy as np
@@ -169,6 +170,9 @@ class DogBreed():
         elif self.__dog_detector(img_path):
             entity = "dog"
             breed = self.__InceptionV3_predict_breed(img_path)
+
+        # clear keras session to prevent memorty leaks
+        backend.clear_session()
 
         return (entity, breed)
 

@@ -25,7 +25,7 @@ $def with (user_file, message)
 		margin: 0 auto;
 	}
 	#top_header{
-		padding: 1.5em 0;
+		padding: .2em 0;
 		
 	}
 	#top_header .logo{
@@ -40,14 +40,15 @@ $def with (user_file, message)
 	#content {
 		margin: 50px 0;
 	}
+	#dog_image {
+		margin: 80px 0 10px 0;
+		width: 200px;
+		height: auto;
+		
+	}
+	
 	
 </style>
-<script type="text/javascript">
-	function loadImage() {
-		document.getElementById("dog_image").src="\""+$user_file+"\""
-
-	}
-</script>
 </head>
 <body>
 	<header id="top_header" class="clearfix">
@@ -67,15 +68,16 @@ $def with (user_file, message)
 			
 			<form id="upload-form" method="POST" enctype="multipart/form-data" action="{{ url_for('webapp') }}">
 				<input type="file" name="myfile" accept="image/*" multiple/>
-				<br/>
-				<input type="submit" value="Get breed"/>
+				<input type="submit" value="Detect breed"/>
 			</form>
 
-			<img id="dog_image" src="" onload="loadImage();" width="200" height="200">
-			<h3 id="dog_breed" style="display: none">$user_file</h3>
+			<img id="dog_image" src="" onload="loadImage();">
 			<h3>$message</h3>
 		</div>
 	</div>
+
+	<!-- hidden field to store img src -->
+	<p id="dog_breed" style="display: none">$user_file</p> 
 
 	<script type="text/javascript">
 		window.onload = function(){
