@@ -12,13 +12,13 @@ app = web.application(urls, globals())
 class index:
 	def __init__(self):
 		self.render = web.template.render('static')
-		
+
 
 	def GET(self, name=None):
-		user_data = web.input(file="", entity="", breed="")
+		user_data = web.input(file="", message="")
 		if user_data.file == "":
 			user_data.file = "0"
-		return self.render.webapp(user_data.file, user_data.entity, user_data.breed)
+		return self.render.webapp(user_data.file, user_data.message)
 
 	def POST(self, name):
 	    x = web.input(myfile={})
@@ -36,9 +36,13 @@ class index:
 	        fout.close() # closes the file, upload complete.
 
 	        entity, breed = DogBreed().detect_breed(filepath)
-	        # entity, breed = ("human", "labrador")
+	        message = 'You are neither human nor dog!'
+	        if entity == 'human':
+	        	message = 'You are a human and you look like {} dog breed.'.format(breed)
+	        elif entity == 'dog':
+	        	message = 'Your breed is {}'.format(breed)
 
-	    raise web.seeother('/?file={}&entity={}&breed={}'.format(os.path.join('static/uploadedImages', filename).replace('\\','/'), entity, breed ))
+	    raise web.seeother('/?file={}&message={}'.format(os.path.join('static/uploadedImages', filename).replace('\\','/'), message))
 
 
 if __name__ == '__main__':
