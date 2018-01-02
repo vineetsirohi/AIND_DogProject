@@ -2,6 +2,13 @@ import web
 import os
 from dogbreed import DogBreed
 
+"""
+Activate dog-project environment and run the following command from shell
+
+python webapp.py 127.0.0.1:8080
+
+"""
+
 
 urls = ('/(.*)', 'index')
 
