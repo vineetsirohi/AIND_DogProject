@@ -1,16 +1,17 @@
 from glob import glob 
-from keras.layers import Conv2D, MaxPooling2D, GlobalAveragePooling2D
-from keras.layers import Dropout, Flatten, Dense
+
 from keras.models import Sequential
+from keras.layers import GlobalAveragePooling2D, Dense
 from keras.preprocessing import image 
-from keras.applications.resnet50 import ResNet50
-from keras.applications.resnet50 import preprocess_input, decode_predictions
+from keras.applications.resnet50 import ResNet50, preprocess_input, decode_predictions
+
 import cv2              
 import numpy as np
 
 
 
 class DogBreed():
+
 
     def __init__(self):
         self.face_cascade = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_alt.xml')
