@@ -1,5 +1,6 @@
 import web
 import os
+from dogbreed import DogBreed
 
 
 urls = ('/(.*)', 'index')
@@ -11,12 +12,13 @@ app = web.application(urls, globals())
 class index:
 	def __init__(self):
 		self.render = web.template.render('static')
+		self.dogBreed = DogBreed()
 
 	def GET(self, name=None):
-		user_data = web.input(file="")
+		user_data = web.input(file="", entity="", breed="")
 		if user_data.file == "":
 			user_data.file = "0"
-		return self.render.webapp(user_data.file)
+		return self.render.webapp(user_data.file, user_data.entity, user_data.breed)
 
 	def POST(self, name):
 	    x = web.input(myfile={})
@@ -32,7 +34,11 @@ class index:
 	        fout = open(filepath,'wb') # creates the file where the uploaded file should be stored
 	        fout.write(x.myfile.file.read()) # writes the uploaded file to the newly created file.
 	        fout.close() # closes the file, upload complete.
-	    raise web.seeother('/?file={}'.format(os.path.join('static/uploadedImages', filename).replace('\\','/')))
+
+	        entity, breed = self.dogBreed.detect_breed(filepath)
+	        # entity, breed = ("human", "labrador")
+
+	    raise web.seeother('/?file={}&entity={}&breed={}'.format(os.path.join('static/uploadedImages', filename).replace('\\','/'), entity, breed ))
 
 
 if __name__ == '__main__':
